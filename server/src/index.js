@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import db from "./db.js";
+import db, { addBookmark } from "./db.js";
 
 const app = express();
 const PORT = 3000;
@@ -15,7 +15,23 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/bookmarks", (req, res) => {
-  res.json([]);
+  const bookmarks = db
+    .prepare("SELECT * FROM bookmarks")
+    .all();
+
+  res.json(bookmarks);
+});
+
+app.post("/api/bookmarks", (req, res) => {
+  const { title, url } = req.body;
+
+  addBookmark(title, url);
+
+  res.json({
+    message: "Bookmark saved",
+    title,
+    url
+  });
 });
 
 // Start server

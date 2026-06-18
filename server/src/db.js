@@ -10,4 +10,13 @@ db.exec(`
   )
 `);
 
+export function addBookmark(title, url) {
+  return db
+    .prepare(`
+      INSERT INTO bookmarks (title, url)
+      VALUES (?, ?)
+    `)
+    .run(title, url);
+}
+
 export default db;
