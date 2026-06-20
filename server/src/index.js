@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import db, { addBookmark } from "./db.js";
+import db, { addBookmark, deleteBookmark, searchBookmarks } from "./db.js";
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +22,7 @@ app.get("/api/bookmarks", (req, res) => {
   res.json(bookmarks);
 });
 
+//add bookmark
 app.post("/api/bookmarks", (req, res) => {
   const { title, url } = req.body;
 
@@ -32,6 +33,26 @@ app.post("/api/bookmarks", (req, res) => {
     title,
     url
   });
+});
+
+//delete bookmark
+app.delete("/api/bookmarks/:id", (req, res) => {
+  const { id } = req.params;
+
+  deleteBookmark(id);
+
+  res.json({
+    message: "Bookmark deleted"
+  });
+});
+
+//search bookmarks
+app.get("/api/bookmarks/search", (req, res) => {
+  const { q } = req.query;
+
+  const bookmarks = searchBookmarks(q);
+
+  res.json(bookmarks);
 });
 
 // Start server

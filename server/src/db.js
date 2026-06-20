@@ -19,4 +19,19 @@ export function addBookmark(title, url) {
     .run(title, url);
 }
 
+export function deleteBookmark(id) {
+  return db
+    .prepare("DELETE FROM bookmarks WHERE id = ?")
+    .run(id);
+}
+
+export function searchBookmarks(query) {
+  return db
+    .prepare(`
+      SELECT * FROM bookmarks
+      WHERE title LIKE ?
+    `)
+    .all(`%${query}%`);
+}
+
 export default db;
