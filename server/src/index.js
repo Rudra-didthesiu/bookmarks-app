@@ -25,6 +25,17 @@ app.get("/api/bookmarks", (req, res) => {
 //add bookmark
 app.post("/api/bookmarks", (req, res) => {
   const { title, url } = req.body;
+   if (!title || !url) {
+    return res.status(400).json({
+      message: "Title and URL are required"
+    });
+  }
+
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+  return res.status(400).json({
+    message: "URL must start with http:// or https://"
+  });
+}
 
   addBookmark(title, url);
 
@@ -46,7 +57,7 @@ app.delete("/api/bookmarks/:id", (req, res) => {
   });
 });
 
-//search bookmarks
+//
 app.get("/api/bookmarks/search", (req, res) => {
   const { q } = req.query;
 
