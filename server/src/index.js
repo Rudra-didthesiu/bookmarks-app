@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import db, { addBookmark, deleteBookmark, searchBookmarks } from "./db.js";
+import db, { addBookmark, deleteBookmark, searchBookmarks, getStats } from "./db.js";
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +30,12 @@ app.post("/api/bookmarks", (req, res) => {
       message: "Title and URL are required"
     });
   }
+
+  if (title.length < 3) {
+  return res.status(400).json({
+    message: "Title must be at least 3 characters long"
+  });
+}
 
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
   return res.status(400).json({
@@ -64,6 +70,12 @@ app.get("/api/bookmarks/search", (req, res) => {
   const bookmarks = searchBookmarks(q);
 
   res.json(bookmarks);
+});
+
+app.get("/api/stats", (req, res) => {
+  const stats = getStats();
+
+  res.json(stats);
 });
 
 // Start server

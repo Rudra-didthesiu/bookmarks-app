@@ -34,4 +34,10 @@ export function searchBookmarks(query) {
     .all(`%${query}%`);
 }
 
+export function getStats() {
+  return db
+    .prepare("SELECT COUNT(*) as totalBookmarks FROM bookmarks")
+    .get();
+}
+
 export default db;
