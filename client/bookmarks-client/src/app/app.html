@@ -1,9 +1,33 @@
 <h1>Bookmarks App</h1>
 
+<input
+  type="text"
+  placeholder="Title"
+  [(ngModel)]="title">
+
+<br><br>
+
+<input
+  type="text"
+  placeholder="URL"
+  [(ngModel)]="url">
+
+<br><br>
+
+<button (click)="addBookmark()">
+  Add Bookmark
+</button>
+
+<hr>
+
 <ul>
   @for (bookmark of bookmarks; track bookmark.id) {
-    <li>
-      {{ bookmark.title }} - {{ bookmark.url }}
-    </li>
+   <li>
+  {{ bookmark.title }} - {{ bookmark.url }}
+
+  <button (click)="deleteBookmark(bookmark.id)">
+    Delete
+  </button>
+</li>
   }
 </ul>
