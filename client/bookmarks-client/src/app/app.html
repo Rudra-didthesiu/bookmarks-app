@@ -1,0 +1,9 @@
+<h1>Bookmarks App</h1>
+
+<ul>
+  @for (bookmark of bookmarks; track bookmark.id) {
+    <li>
+      {{ bookmark.title }} - {{ bookmark.url }}
+    </li>
+  }
+</ul>
