@@ -14,6 +14,7 @@ export class App implements OnInit {
   bookmarks: any[] = [];
   title = '';
 url = '';
+searchQuery = '';
 
   constructor(private bookmarkService: BookmarkService) {}
 
@@ -45,6 +46,20 @@ deleteBookmark(id: number) {
   this.bookmarkService.deleteBookmark(id).subscribe(() => {
     this.loadBookmarks();
   });
+}
+
+onSearch() {
+
+  if (this.searchQuery.length < 2) {
+    this.loadBookmarks();
+    return;
+  }
+
+  this.bookmarkService
+    .searchBookmarks(this.searchQuery)
+    .subscribe((data: any) => {
+      this.bookmarks = data;
+    });
 }
 
 }

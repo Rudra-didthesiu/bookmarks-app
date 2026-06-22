@@ -2,6 +2,14 @@
 
 <input
   type="text"
+  placeholder="Search bookmarks..."
+  [(ngModel)]="searchQuery"
+  (input)="onSearch()">
+
+<br><br>
+
+<input
+  type="text"
   placeholder="Title"
   [(ngModel)]="title">
 
@@ -23,11 +31,11 @@
 <ul>
   @for (bookmark of bookmarks; track bookmark.id) {
    <li>
-  {{ bookmark.title }} - {{ bookmark.url }}
+    {{ bookmark.title }} - {{ bookmark.url }}
 
-  <button (click)="deleteBookmark(bookmark.id)">
-    Delete
-  </button>
-</li>
+    <button (click)="deleteBookmark(bookmark.id)">
+      Delete
+    </button>
+   </li>
   }
 </ul>
