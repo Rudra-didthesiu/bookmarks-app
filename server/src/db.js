@@ -6,17 +6,19 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS bookmarks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
-    url TEXT NOT NULL
+    url TEXT NOT NULL,
+    category TEXT NOT NULL,
+    created_at TEXT NOT NULL
   )
 `);
 
-export function addBookmark(title, url) {
+export function addBookmark(title, url, category, created_at) {
   return db
     .prepare(`
-      INSERT INTO bookmarks (title, url)
-      VALUES (?, ?)
+      INSERT INTO bookmarks (title, url, category, created_at)
+      VALUES (?, ?, ?, ?)
     `)
-    .run(title, url);
+    .run(title, url, category, created_at);
 }
 
 export function deleteBookmark(id) {

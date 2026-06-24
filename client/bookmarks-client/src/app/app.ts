@@ -12,8 +12,9 @@ import { FormsModule } from '@angular/forms';
 export class App implements OnInit {
 // Define properties for bookmarks
   bookmarks: any[] = [];
-  title = '';
+title = '';
 url = '';
+category = '';
 searchQuery = '';
 
   constructor(private bookmarkService: BookmarkService) {}
@@ -29,9 +30,10 @@ loadBookmarks() {
 }
 // add bookmark method
 addBookmark() {
-  const bookmark = {
+  const bookmark = {  
     title: this.title,
-    url: this.url
+    url: this.url,
+    category: this.category
   };
 
   this.bookmarkService.addBookmark(bookmark).subscribe(() => {
@@ -39,6 +41,7 @@ addBookmark() {
 
     this.title = '';
     this.url = '';
+    this.category = '';
   });
 }
 

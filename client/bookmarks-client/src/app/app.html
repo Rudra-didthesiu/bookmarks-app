@@ -20,6 +20,11 @@
   placeholder="URL"
   [(ngModel)]="url">
 
+<input
+  type="text"
+  placeholder="Category"
+  [(ngModel)]="category">
+
 <br><br>
 
 <button (click)="addBookmark()">
@@ -31,7 +36,7 @@
 <ul>
   @for (bookmark of bookmarks; track bookmark.id) {
    <li>
-    {{ bookmark.title }} - {{ bookmark.url }}
+   {{ bookmark.title }} - {{ bookmark.url }} - {{ bookmark.category }}
 
     <button (click)="deleteBookmark(bookmark.id)">
       Delete

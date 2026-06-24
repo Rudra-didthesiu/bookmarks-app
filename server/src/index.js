@@ -5,6 +5,7 @@ import db, { addBookmark, deleteBookmark, searchBookmarks, getStats } from "./db
 const app = express();
 const PORT = 3000;
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -24,10 +25,11 @@ app.get("/api/bookmarks", (req, res) => {
 
 //add bookmark
 app.post("/api/bookmarks", (req, res) => {
-  const { title, url } = req.body;
-   if (!title || !url) {
+  const { title, url, category } = req.body;
+  const created_at = new Date().toISOString();
+   if (!title || !url || !category) {
     return res.status(400).json({
-      message: "Title and URL are required"
+      message: "Title, URL, and Category are required"
     });
   }
 
@@ -43,12 +45,14 @@ app.post("/api/bookmarks", (req, res) => {
   });
 }
 
-  addBookmark(title, url);
+  addBookmark(title, url, category, created_at);
 
   res.json({
     message: "Bookmark saved",
     title,
-    url
+    url,
+    category,
+    created_at
   });
 });
 
