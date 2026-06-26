@@ -22,7 +22,7 @@ export class BookmarkService {
 //searchBookmarks method 
 searchBookmarks(query: string) {
   return this.http.get(
-    `${this.apiUrl}/search?q=${query}`
+    `${this.apiUrl}/search?q=${encodeURIComponent(query)}`
   );
 }
 
