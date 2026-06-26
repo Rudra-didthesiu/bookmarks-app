@@ -27,6 +27,10 @@
 
 <br><br>
 
+@if (errorMessage) {
+  <p style="color: red">{{ errorMessage }}</p>
+}
+
 <button (click)="addBookmark()">
   Add Bookmark
 </button>

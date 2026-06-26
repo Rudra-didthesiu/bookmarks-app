@@ -12,6 +12,8 @@ db.exec(`
   )
 `);
 
+db.exec(`CREATE INDEX IF NOT EXISTS idx_bookmarks_search ON bookmarks(title, url, category)`);
+
 export function addBookmark(title, url, category, created_at) {
   return db
     .prepare(`
@@ -31,9 +33,10 @@ export function searchBookmarks(query) {
   return db
     .prepare(`
       SELECT * FROM bookmarks
-      WHERE title LIKE ?
+      WHERE title LIKE ? OR url LIKE ? OR category LIKE ?
+      LIMIT 50
     `)
-    .all(`%${query}%`);
+    .all(`%${query}%`, `%${query}%`, `%${query}%`);
 }
 
 export function getStats() {
